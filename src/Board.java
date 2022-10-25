@@ -1,4 +1,63 @@
 public class Board {
+
+    public ChessBricks[] whiteBricks = new ChessBricks[16];
+    public ChessBricks[] blackBricks = new ChessBricks[16];
+
+
+
+    public void makeChessPiecesForPlayers() {
+        // Set pawns for both players
+        for (int i = 0; i < 8; i++) {
+            whiteBricks[i] = ChessBricks.PAWN;
+            blackBricks[i] = ChessBricks.PAWN;
+            setChessPlayer(i);
+        }
+        // Set rooks for both players
+        for (int i = 8; i < 10; i++) {
+            whiteBricks[i] = ChessBricks.ROOK;
+            blackBricks[i] = ChessBricks.ROOK;
+            setChessPlayer(i);
+        }
+        // Set Bishops for both players
+        for (int i = 10; i < 12; i++) {
+            whiteBricks[i] = ChessBricks.BISHOP;
+            blackBricks[i] = ChessBricks.BISHOP;
+            setChessPlayer(i);
+        }
+        // Set knights for both players
+        for (int i = 12; i < 14; i++) {
+            whiteBricks[i] = ChessBricks.KNIGHT;
+            blackBricks[i] = ChessBricks.KNIGHT;
+            setChessPlayer(i);
+        }
+        // Set kings
+        whiteBricks[14] = ChessBricks.KING;
+        blackBricks[14] = ChessBricks.KING;
+        setChessPlayer(14);
+        // Set Queens
+        whiteBricks[15] = ChessBricks.QUEEN;
+        blackBricks[15] = ChessBricks.QUEEN;
+        setChessPlayer(15);
+    }
+
+
+    public void setChessPlayer(int i) {
+            whiteBricks[i].getPlayer().setColor("W");
+            blackBricks[i].getPlayer().setColor("B");
+    }
+
+    public void createChessBoards() {
+
+    }
+
+
+
+
+
+
+
+
+
     private String[][] chessBoard = new String[18][10];
 
     public void createChessBoard() {
