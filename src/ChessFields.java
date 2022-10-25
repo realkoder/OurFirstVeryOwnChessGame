@@ -1,8 +1,9 @@
 public class ChessFields {
     private char name = '@';
     private int position;
+    private String outerRingMatrix;
 
-    private ChessBricks[] chessPiece = new ChessBricks[1];
+    public ChessBricks[] chessPiece = new ChessBricks[1];
 
 
 
@@ -20,6 +21,10 @@ public class ChessFields {
         this.position = i;
     }
 
+    public void setOuterRingMatrix(String outerRingMatrix) {
+        this.outerRingMatrix = outerRingMatrix;
+    }
+
     // Getter ----------------------------------
     public char getName() {
         return name;
@@ -27,5 +32,9 @@ public class ChessFields {
 
     public int getPosition() {
         return position;
+    }
+
+    public String getOuterRingMatrix() {
+        return outerRingMatrix;
     }
 }

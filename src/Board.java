@@ -7,138 +7,150 @@ public class Board {
 
 
 
+    // Creating all chess pieces for both black and white player.
     public void makeChessPiecesForPlayers() {
         // Set pawns for both players
         for (int i = 0; i < 8; i++) {
             whiteBricks[i] = ChessBricks.PAWN;
+            whiteBricks[i].getPlayer().setColor("W");
             blackBricks[i] = ChessBricks.PAWN;
-            setChessPlayer(i);
+            blackBricks[i].getPlayer().setColor("B");
         }
         // Set rooks for both players
         for (int i = 8; i < 10; i++) {
             whiteBricks[i] = ChessBricks.ROOK;
+            whiteBricks[i].getPlayer().setColor("W");
             blackBricks[i] = ChessBricks.ROOK;
-            setChessPlayer(i);
+            blackBricks[i].getPlayer().setColor("B");
         }
         // Set Bishops for both players
         for (int i = 10; i < 12; i++) {
             whiteBricks[i] = ChessBricks.BISHOP;
+            whiteBricks[i].getPlayer().setColor("W");
             blackBricks[i] = ChessBricks.BISHOP;
-            setChessPlayer(i);
+            blackBricks[i].getPlayer().setColor("W");
         }
         // Set knights for both players
         for (int i = 12; i < 14; i++) {
             whiteBricks[i] = ChessBricks.KNIGHT;
+            whiteBricks[i].getPlayer().setColor("W");
             blackBricks[i] = ChessBricks.KNIGHT;
-            setChessPlayer(i);
+            blackBricks[i].getPlayer().setColor("B");
         }
         // Set kings
         whiteBricks[14] = ChessBricks.KING;
+        whiteBricks[14].getPlayer().setColor("W");
         blackBricks[14] = ChessBricks.KING;
-        setChessPlayer(14);
+        blackBricks[14].getPlayer().setColor("B");
         // Set Queens
         whiteBricks[15] = ChessBricks.QUEEN;
+        whiteBricks[15].getPlayer().setColor("W");
         blackBricks[15] = ChessBricks.QUEEN;
-        setChessPlayer(15);
+        blackBricks[14].getPlayer().setColor("B");
     }
 
 
+    // Makes chessBricks have a unique color so two players can keep track of the bricks
     public void setChessPlayer(int i) {
             whiteBricks[i].getPlayer().setColor("W");
             blackBricks[i].getPlayer().setColor("B");
     }
 
+
+    // Creating the chess board playing field
     public void createChessBoards() {
         for (int i = 1; i < chessBoards.length - 1; i++) {
             for (int j = 1; j < chessBoards[i].length - 1; j++) {
                 chessBoards[i][j] = new ChessFields();
                 chessBoards[i][j].setName(j);
                 chessBoards[i][j].setPosition(i);
-                }
+            }
 
         }
     }
 
-
-
-
-
-
-
-
-
-    private String[][] chessBoard = new String[18][10];
-
-    public void createChessBoard() {
+    // Creating an outer ring of the chess board, for layout purposes
+    public void createOuterBoardRing() {
         int boardNum = 1;
-        chessBoard[2][1] = "WRO";
-        chessBoard[2][2] = "WKN";
-        chessBoard[2][3] = "WBI";
-        chessBoard[2][4] = "WQU";
-        chessBoard[2][5] = "WKI";
-        chessBoard[2][6] = "WBI";
-        chessBoard[2][7] = "WKN";
-        chessBoard[2][8] = "WRO";
-        chessBoard[16][1] = "BRO";
-        chessBoard[16][2] = "BKN";
-        chessBoard[16][3] = "BBI";
-        chessBoard[16][4] = "BKI";
-        chessBoard[16][5] = "BQU";
-        chessBoard[16][6] = "BBI";
-        chessBoard[16][7] = "BKN";
-        chessBoard[16][8] = "BRO";
-        for (int i = 0; i < chessBoard.length; i++) {
-            for (int j = 0; j < chessBoard[0].length; j++) {
-                boardLogic(i, j);
-                if (i % 2 == 0 && j == 0 && i != 0){
-                    chessBoard[i][j] = Integer.toString(boardNum) +"  ";
-                    chessBoard[i][j+9] = Integer.toString(boardNum)+"  ";
-                    boardNum ++;
+
+        for (int i = 0; i < chessBoards.length; i++) {
+            for (int j = 0; j < chessBoards[i].length; j++) {
+
+                // Creates and empty space at start of column and end, while adding Characters of chess fields A -> H
+                if (i == 0 || i == 17) {
+                    if (j == 0 || j == 9) {
+                        chessBoards[i][j] = new ChessFields();
+                        chessBoards[i][j].setOuterRingMatrix("   ");
+                    } else {
+                        chessBoards[i][j] = new ChessFields();
+                        chessBoards[i][j].setOuterRingMatrix(Character.toString(65 + j -1) + "  ");
+                    }
+                }
+
+                // Creates a dividing line between fields ---------
+                if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15) {
+                    chessBoards[i][j] = new ChessFields();
+                    chessBoards[i][j].setOuterRingMatrix("---");
+                }
+
+                // Creates empty spaces for print layout between black and white pieces at start -----
+                if (i == 6 || i == 8 || i == 10 || i == 12) {
+                    if (j > 0 && j < 9) {
+                        chessBoards[i][j] = new ChessFields();
+                        chessBoards[i][j].setOuterRingMatrix("   ");
+                    }
+                }
+
+                // Creates the numbers so one can see the chess field locations -----
+                if (i % 2 == 0 && j == 0 && i != 0) {
+                    chessBoards[i][j] = new ChessFields();
+                    chessBoards[i][j].setOuterRingMatrix(boardNum + "  ");
+                    chessBoards[i][j+9] = new ChessFields();
+                    chessBoards[i][j+9].setOuterRingMatrix(boardNum + "  ");
+                    boardNum++;
                 }
             }
         }
     }
 
+    public void addChessPiecesToBoard() {
+        chessBoards[2][1].chessPiece[0] = whiteBricks[8];
+        chessBoards[2][2].chessPiece[0] = whiteBricks[12];
+        chessBoards[2][3].chessPiece[0] = whiteBricks[10];
+        chessBoards[2][4].chessPiece[0] = whiteBricks[15];
+        chessBoards[2][5].chessPiece[0] = whiteBricks[14];
+        chessBoards[2][6].chessPiece[0] = whiteBricks[11];
+        chessBoards[2][7].chessPiece[0] = whiteBricks[13];
+        chessBoards[2][8].chessPiece[0] = whiteBricks[9];
+        chessBoards[16][1].chessPiece[0] = blackBricks[8];
+        chessBoards[16][2].chessPiece[0] = blackBricks[12];
+        chessBoards[16][3].chessPiece[0] = blackBricks[10];
+        chessBoards[16][4].chessPiece[0] = blackBricks[15];
+        chessBoards[16][5].chessPiece[0] = blackBricks[14];
+        chessBoards[16][6].chessPiece[0] = blackBricks[11];
+        chessBoards[16][7].chessPiece[0] = blackBricks[13];
+        chessBoards[16][8].chessPiece[0] = blackBricks[9];
+        for (int i = 1; i < chessBoards[0].length - 1; i++) {
+            chessBoards[4][i].chessPiece[0] = whiteBricks[0];
+            chessBoards[14][i].chessPiece[0] = blackBricks[0];
+        }
+    }
+
+
     public void print() {
-        for (int i = 1; i < chessBoards.length - 1; i++) {
-            for (int j = 1; j < chessBoards[0].length - 1; j++) {
+        for (int i = 0; i < chessBoards.length; i++) {
+            for (int j = 0; j < chessBoards[0].length; j++) {
                 System.out.print(" |");
-                System.out.print(chessBoards[i][j].getName());
+                if (chessBoards[i][j].getOuterRingMatrix() == null) {
+                    System.out.print(chessBoards[i][j].chessPiece[0].getPlayer().getColor() +
+                            chessBoards[i][j].chessPiece[0].getName());
+                } else {
+                System.out.print(chessBoards[i][j].getOuterRingMatrix());
+                }
+
             }
             System.out.print(" |");
             System.out.println();
         }
-    }
-
-    public void boardLogic(int columns, int row) {
-        switch (columns) {
-            case 0, 17:
-                if (row == 0 || row == 9) {
-                    chessBoard[columns][row] = "   ";
-                }else chessBoard[columns][row] = Character.toString(65 + row -1) + "  ";
-                break;
-            case 4:
-                if (row > 0 && row < 9) {
-                    chessBoard[columns][row] = "WPA";
-                }
-                break;
-            case 1, 3, 5, 7, 9, 11, 13, 15:
-                    chessBoard[columns][row] = "---";
-                break;
-            case 6, 8, 10, 12:
-                if (row > 0 && row < 9) {
-                    chessBoard[columns][row] = "   ";
-                }
-                break;
-            case 14:
-                if (row > 0 && row < 9) {
-                    chessBoard[columns][row] = "BPA";
-                }
-                break;
-        }
-    }
-    public void makePawn(){
-        chessBoard[6][1] = chessBoard[4][1];
-        chessBoard[4][1] = "   ";
     }
 }
