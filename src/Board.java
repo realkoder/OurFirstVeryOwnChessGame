@@ -3,6 +3,8 @@ public class Board {
     public ChessBricks[] whiteBricks = new ChessBricks[16];
     public ChessBricks[] blackBricks = new ChessBricks[16];
 
+    public ChessFields[][] chessBoards = new ChessFields[18][10];
+
 
 
     public void makeChessPiecesForPlayers() {
@@ -47,7 +49,14 @@ public class Board {
     }
 
     public void createChessBoards() {
+        for (int i = 1; i < chessBoards.length - 1; i++) {
+            for (int j = 1; j < chessBoards[i].length - 1; j++) {
+                chessBoards[i][j] = new ChessFields();
+                chessBoards[i][j].setName(j);
+                chessBoards[i][j].setPosition(i);
+                }
 
+        }
     }
 
 
@@ -91,10 +100,10 @@ public class Board {
     }
 
     public void print() {
-        for (int i = 0; i < chessBoard.length; i++) {
-            for (int j = 0; j < chessBoard[0].length; j++) {
+        for (int i = 1; i < chessBoards.length - 1; i++) {
+            for (int j = 1; j < chessBoards[0].length - 1; j++) {
                 System.out.print(" |");
-                System.out.print(chessBoard[i][j]);
+                System.out.print(chessBoards[i][j].getName());
             }
             System.out.print(" |");
             System.out.println();
