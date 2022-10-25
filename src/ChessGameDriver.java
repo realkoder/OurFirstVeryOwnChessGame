@@ -1,4 +1,4 @@
-public class Main {
+public class ChessGameDriver {
     public void run(){
         Board board = new Board();
         board.createChessBoard();
@@ -9,6 +9,6 @@ public class Main {
         board.print();
     }
     public static void main(String[]  args){
-        new Main().run();
+        new ChessGameDriver().run();
     }
 }
