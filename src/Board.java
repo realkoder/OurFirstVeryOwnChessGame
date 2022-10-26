@@ -1,3 +1,7 @@
+// The board class is creating each chess field, holding a chess piece which is owned by a player by color ( W / B )
+
+import java.util.Iterator;
+
 public class Board {
 
     public Player[] whiteBricks = new Player[6];
@@ -67,7 +71,7 @@ public class Board {
             for (int j = 1; j < chessBoards[i].length - 1; j++) {
                 chessBoards[i][j] = new ChessFields();
                 chessBoards[i][j].setName(j);
-                chessBoards[i][j].setPosition(i);
+                chessBoards[i][j].setPosition(i/2);
             }
 
         }
@@ -117,31 +121,32 @@ public class Board {
         }
     }
 
+    // Adding manually each chess piece to the board.
     public void addChessPiecesToBoard() {
         // Add White Chess Pieces ----------------
-        chessBoards[2][1].chessPiece[0] = whiteBricks[1];
-        chessBoards[2][2].chessPiece[0] = whiteBricks[3];
-        chessBoards[2][3].chessPiece[0] = whiteBricks[2];
-        chessBoards[2][4].chessPiece[0] = whiteBricks[4];
-        chessBoards[2][5].chessPiece[0] = whiteBricks[5];
-        chessBoards[2][6].chessPiece[0] = whiteBricks[2];
-        chessBoards[2][7].chessPiece[0] = whiteBricks[3];
-        chessBoards[2][8].chessPiece[0] = whiteBricks[1];
+        chessBoards[2][1].getChessPiece()[0] = whiteBricks[1];
+        chessBoards[2][2].getChessPiece()[0] = whiteBricks[3];
+        chessBoards[2][3].getChessPiece()[0] = whiteBricks[2];
+        chessBoards[2][4].getChessPiece()[0] = whiteBricks[4];
+        chessBoards[2][5].getChessPiece()[0] = whiteBricks[5];
+        chessBoards[2][6].getChessPiece()[0] = whiteBricks[2];
+        chessBoards[2][7].getChessPiece()[0] = whiteBricks[3];
+        chessBoards[2][8].getChessPiece()[0] = whiteBricks[1];
 
         // Add Black Chess Pieces ----------------
-        chessBoards[16][1].chessPiece[0] = blackBricks[1];
-        chessBoards[16][2].chessPiece[0] = blackBricks[3];
-        chessBoards[16][3].chessPiece[0] = blackBricks[2];
-        chessBoards[16][4].chessPiece[0] = blackBricks[5];
-        chessBoards[16][5].chessPiece[0] = blackBricks[4];
-        chessBoards[16][6].chessPiece[0] = blackBricks[2];
-        chessBoards[16][7].chessPiece[0] = blackBricks[3];
-        chessBoards[16][8].chessPiece[0] = blackBricks[1];
+        chessBoards[16][1].getChessPiece()[0] = blackBricks[1];
+        chessBoards[16][2].getChessPiece()[0] = blackBricks[3];
+        chessBoards[16][3].getChessPiece()[0] = blackBricks[2];
+        chessBoards[16][4].getChessPiece()[0] = blackBricks[5];
+        chessBoards[16][5].getChessPiece()[0] = blackBricks[4];
+        chessBoards[16][6].getChessPiece()[0] = blackBricks[2];
+        chessBoards[16][7].getChessPiece()[0] = blackBricks[3];
+        chessBoards[16][8].getChessPiece()[0] = blackBricks[1];
 
         // Add Pawn pieces for both players -------
         for (int i = 1; i < chessBoards[0].length - 1; i++) {
-            chessBoards[4][i].chessPiece[0] = whiteBricks[0];
-            chessBoards[14][i].chessPiece[0] = blackBricks[0];
+            chessBoards[4][i].getChessPiece()[0] = whiteBricks[0];
+            chessBoards[14][i].getChessPiece()[0] = blackBricks[0];
         }
     }
 
@@ -152,9 +157,10 @@ public class Board {
                 System.out.print(" |");
 
                 // Making sure to always print chess pieces IN the game
+                // Should a brick die or turn null, and empty position would be printed instead.
                 if (chessBoards[i][j].getOuterRingMatrix() == null) {
-                    System.out.print(chessBoards[i][j].chessPiece[0].getColor() +
-                            chessBoards[i][j].chessPiece[0].getChessBricks().getName());
+                    System.out.print(chessBoards[i][j].getChessPiece()[0].getColor() +
+                            chessBoards[i][j].getChessPiece()[0].getChessBricks().getName());
                 } else {
                 System.out.print(chessBoards[i][j].getOuterRingMatrix());
                 }
@@ -163,5 +169,43 @@ public class Board {
             System.out.print(" |");
             System.out.println();
         }
+    }
+
+    // Constructor - Creating the board: Ready for playing!
+    Board() {
+        makeBlackChessPlayer();
+        makeWhiteChessPlayer();
+        createChessBoards();
+        createOuterBoardRing();
+        addChessPiecesToBoard();
+    }
+
+    // Behavior (Methods) -------------------------------------
+
+    public boolean findFieldPosition(int position, char name) {
+
+        boolean fieldFound = false;
+        for (int i = 1; i < chessBoards.length - 1; i++) {
+            for (int j = 1; j < chessBoards[i].length - 1;) {
+                if (chessBoards[i][j].getPosition() == position && chessBoards[i][j].getName() == name) {
+                fieldFound = true;
+                break;
+                }
+            }
+        }
+        return fieldFound;
+    }
+
+    public ChessBricks checkChessBrick(int position, char name) {
+        ChessBricks chessBricks = null;
+        for (int i = 1; i < chessBoards.length - 1; i++) {
+            for (int j = 1; j < chessBoards[i].length - 1; j++) {
+                if (chessBoards[i][j].getPosition() == position && chessBoards[i][j].getName() == name) {
+                    chessBricks = chessBoards[i][j].getChessPiece()[0].getChessBricks();
+                    break;
+                }
+            }
+        }
+        return chessBricks;
     }
 }

@@ -1,10 +1,13 @@
+// The player class holds a name, color and a chess brick.
 public class Player {
 
-    //Har et farve, og brikker
+    private String name;
     private String color;
 
     private ChessBricks chessBricks;
 
+
+    // Getter -------------------------------
     public ChessBricks getChessBricks() {
         return chessBricks;
     }
@@ -13,6 +16,15 @@ public class Player {
         return color;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    // Setter ---------------------------------
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setChessBricks(ChessBricks chessBricks) {
         this.chessBricks = chessBricks;
     }
@@ -21,6 +33,7 @@ public class Player {
         this.color = name;
     }
 
+    // Constructor -----------------------------
     Player(String color) {
         setColor(color);
     }
