@@ -1,59 +1,63 @@
 public class Board {
 
-    public ChessBricks[] whiteBricks = new ChessBricks[16];
-    public ChessBricks[] blackBricks = new ChessBricks[16];
+    public Player[] whiteBricks = new Player[6];
+    public Player[] blackBricks = new Player[6];
 
     public ChessFields[][] chessBoards = new ChessFields[18][10];
 
 
 
     // Creating all chess pieces for both black and white player.
-    public void makeChessPiecesForPlayers() {
+    public void makeWhiteChessPlayer() {
         // Set pawns for both players
-        for (int i = 0; i < 8; i++) {
-            whiteBricks[i] = ChessBricks.PAWN;
-            whiteBricks[i].getPlayer().setColor("W");
-            blackBricks[i] = ChessBricks.PAWN;
-            blackBricks[i].getPlayer().setColor("B");
-        }
+            whiteBricks[0] = new Player("W");
+            whiteBricks[0].setChessBricks(ChessBricks.PAWN);
+
         // Set rooks for both players
-        for (int i = 8; i < 10; i++) {
-            whiteBricks[i] = ChessBricks.ROOK;
-            whiteBricks[i].getPlayer().setColor("W");
-            blackBricks[i] = ChessBricks.ROOK;
-            blackBricks[i].getPlayer().setColor("B");
-        }
+            whiteBricks[1] = new Player("W");
+            whiteBricks[1].setChessBricks(ChessBricks.ROOK);
+
         // Set Bishops for both players
-        for (int i = 10; i < 12; i++) {
-            whiteBricks[i] = ChessBricks.BISHOP;
-            whiteBricks[i].getPlayer().setColor("W");
-            blackBricks[i] = ChessBricks.BISHOP;
-            blackBricks[i].getPlayer().setColor("W");
-        }
-        // Set knights for both players
-        for (int i = 12; i < 14; i++) {
-            whiteBricks[i] = ChessBricks.KNIGHT;
-            whiteBricks[i].getPlayer().setColor("W");
-            blackBricks[i] = ChessBricks.KNIGHT;
-            blackBricks[i].getPlayer().setColor("B");
-        }
+            whiteBricks[2] = new Player("W");
+            whiteBricks[2].setChessBricks(ChessBricks.BISHOP);
+
+        // Set knight
+            whiteBricks[3] = new Player("W");
+            whiteBricks[3].setChessBricks(ChessBricks.KNIGHT);
+
         // Set kings
-        whiteBricks[14] = ChessBricks.KING;
-        whiteBricks[14].getPlayer().setColor("W");
-        blackBricks[14] = ChessBricks.KING;
-        blackBricks[14].getPlayer().setColor("B");
-        // Set Queens
-        whiteBricks[15] = ChessBricks.QUEEN;
-        whiteBricks[15].getPlayer().setColor("W");
-        blackBricks[15] = ChessBricks.QUEEN;
-        blackBricks[14].getPlayer().setColor("B");
+        whiteBricks[4] = new Player("W");
+        whiteBricks[4].setChessBricks(ChessBricks.KING);
+
+        // Set Queen
+        whiteBricks[5] = new Player("W");
+        whiteBricks[5].setChessBricks(ChessBricks.QUEEN);
     }
 
+    public void makeBlackChessPlayer() {
+        // Set Pawns
+        blackBricks[0] = new Player("B");
+        blackBricks[0].setChessBricks(ChessBricks.PAWN);
 
-    // Makes chessBricks have a unique color so two players can keep track of the bricks
-    public void setChessPlayer(int i) {
-            whiteBricks[i].getPlayer().setColor("W");
-            blackBricks[i].getPlayer().setColor("B");
+        // Set Rooks
+        blackBricks[1] = new Player("B");
+        blackBricks[1].setChessBricks(ChessBricks.ROOK);
+
+        // Set Bishops
+        blackBricks[2] = new Player("B");
+        blackBricks[2].setChessBricks(ChessBricks.BISHOP);
+
+        // Set knights
+        blackBricks[3] = new Player("B");
+        blackBricks[3].setChessBricks(ChessBricks.KNIGHT);
+
+        // Set King
+        blackBricks[4] = new Player("B");
+        blackBricks[4].setChessBricks(ChessBricks.KING);
+
+        // Set Queen
+        blackBricks[5] = new Player("B");
+        blackBricks[5].setChessBricks(ChessBricks.QUEEN);
     }
 
 
@@ -114,22 +118,27 @@ public class Board {
     }
 
     public void addChessPiecesToBoard() {
-        chessBoards[2][1].chessPiece[0] = whiteBricks[8];
-        chessBoards[2][2].chessPiece[0] = whiteBricks[12];
-        chessBoards[2][3].chessPiece[0] = whiteBricks[10];
-        chessBoards[2][4].chessPiece[0] = whiteBricks[15];
-        chessBoards[2][5].chessPiece[0] = whiteBricks[14];
-        chessBoards[2][6].chessPiece[0] = whiteBricks[11];
-        chessBoards[2][7].chessPiece[0] = whiteBricks[13];
-        chessBoards[2][8].chessPiece[0] = whiteBricks[9];
-        chessBoards[16][1].chessPiece[0] = blackBricks[8];
-        chessBoards[16][2].chessPiece[0] = blackBricks[12];
-        chessBoards[16][3].chessPiece[0] = blackBricks[10];
-        chessBoards[16][4].chessPiece[0] = blackBricks[15];
-        chessBoards[16][5].chessPiece[0] = blackBricks[14];
-        chessBoards[16][6].chessPiece[0] = blackBricks[11];
-        chessBoards[16][7].chessPiece[0] = blackBricks[13];
-        chessBoards[16][8].chessPiece[0] = blackBricks[9];
+        // Add White Chess Pieces ----------------
+        chessBoards[2][1].chessPiece[0] = whiteBricks[1];
+        chessBoards[2][2].chessPiece[0] = whiteBricks[3];
+        chessBoards[2][3].chessPiece[0] = whiteBricks[2];
+        chessBoards[2][4].chessPiece[0] = whiteBricks[4];
+        chessBoards[2][5].chessPiece[0] = whiteBricks[5];
+        chessBoards[2][6].chessPiece[0] = whiteBricks[2];
+        chessBoards[2][7].chessPiece[0] = whiteBricks[3];
+        chessBoards[2][8].chessPiece[0] = whiteBricks[1];
+
+        // Add Black Chess Pieces ----------------
+        chessBoards[16][1].chessPiece[0] = blackBricks[1];
+        chessBoards[16][2].chessPiece[0] = blackBricks[3];
+        chessBoards[16][3].chessPiece[0] = blackBricks[2];
+        chessBoards[16][4].chessPiece[0] = blackBricks[5];
+        chessBoards[16][5].chessPiece[0] = blackBricks[4];
+        chessBoards[16][6].chessPiece[0] = blackBricks[2];
+        chessBoards[16][7].chessPiece[0] = blackBricks[3];
+        chessBoards[16][8].chessPiece[0] = blackBricks[1];
+
+        // Add Pawn pieces for both players -------
         for (int i = 1; i < chessBoards[0].length - 1; i++) {
             chessBoards[4][i].chessPiece[0] = whiteBricks[0];
             chessBoards[14][i].chessPiece[0] = blackBricks[0];
@@ -141,9 +150,11 @@ public class Board {
         for (int i = 0; i < chessBoards.length; i++) {
             for (int j = 0; j < chessBoards[0].length; j++) {
                 System.out.print(" |");
+
+                // Making sure to always print chess pieces IN the game
                 if (chessBoards[i][j].getOuterRingMatrix() == null) {
-                    System.out.print(chessBoards[i][j].chessPiece[0].getPlayer().getColor() +
-                            chessBoards[i][j].chessPiece[0].getName());
+                    System.out.print(chessBoards[i][j].chessPiece[0].getColor() +
+                            chessBoards[i][j].chessPiece[0].getChessBricks().getName());
                 } else {
                 System.out.print(chessBoards[i][j].getOuterRingMatrix());
                 }

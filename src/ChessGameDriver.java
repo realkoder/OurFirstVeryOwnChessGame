@@ -1,7 +1,8 @@
 public class ChessGameDriver {
     public void run(){
         Board board = new Board();
-        board.makeChessPiecesForPlayers();
+        board.makeBlackChessPlayer();
+        board.makeWhiteChessPlayer();
         board.createChessBoards();
         board.createOuterBoardRing();
         board.addChessPiecesToBoard();

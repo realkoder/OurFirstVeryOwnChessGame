@@ -3,7 +3,7 @@ public class ChessFields {
     private int position;
     private String outerRingMatrix;
 
-    public ChessBricks[] chessPiece = new ChessBricks[1];
+    public Player[] chessPiece = new Player[1];
 
 
 
