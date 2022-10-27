@@ -60,8 +60,9 @@ public class GameLogic extends Board {
 
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) && Math.abs(colMove - col) < 5 &&
-                Math.abs(rowMove-row) < 3 && !(Math.abs(colMove - col) != 2 && Math.abs(rowMove - row) != 1) &&
-                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
+                Math.abs(rowMove-row) < 3 && !(Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 1) &&
+                !(Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) && !(Math.abs(colMove - col) > 4 &&
+                Math.abs(rowMove - row) > 2) && chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
             chessBoards[colMove][rowMove].setOuterRingMatrix(null);
             chessBoards[colMove][rowMove].setChessPiece(chessBoards[col][row].getChessPiece());
