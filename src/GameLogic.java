@@ -5,11 +5,11 @@ public class GameLogic extends Board {
     Scanner in = new Scanner(System.in);
 
 
-    public void pawnMove() {
+    public void pawnBlackMove() {
         System.out.print("Please enter number position: ");
         int position = in.nextInt();
-        System.out.print(" And which letter: ");
         in.nextLine();                  // Scanner Bug
+        System.out.print(" And which letter: ");
         char name = in.next().charAt(0);
 
         for (int i = 1; i < chessBoards.length - 1; i++) {
@@ -22,22 +22,45 @@ public class GameLogic extends Board {
 
                     // Initiating move condition
                     System.out.print("Where do you want to move your " + ChessBricks.PAWN+ " ?: ");
+                    System.out.print("Number: ");
                     int movePosition = in.nextInt();
                     in.nextLine();              // Scanner Bug
+                    System.out.print("Letter: ");
                     char moveName = in.next().charAt(0);
 
                     // Predefine options of PAWN movement - if conditions are met, move is acceptable
+                    if (chessBoards[i-2][j].getPosition() == movePosition &&
+                            chessBoards[i-2][j].getName() == moveName &&
+                            chessBoards[i-2][j].getOuterRingMatrix() != null) {
 
                         // Moving player brick, and setting former field to null (removing brick)
+                        chessBoards[i-2][j].setOuterRingMatrix(null);
                         chessBoards[i-2][j].setChessPiece(chessBoards[i][j].getChessPiece());
-
                         chessBoards[i][j].setOuterRingMatrix("   ");
+                    }
 
+                    // Attempt to attack enemy diagonally-RIGHT and kill them.
+                    if (chessBoards[i-2][j+1].getPosition() == movePosition &&
+                            chessBoards[i-2][j+1].getName() == moveName) {
 
+                        // Moving player brick, and killing enemy Pawn
+                        chessBoards[i-2][j+1].setChessPiece(chessBoards[i][j].getChessPiece());
+                        chessBoards[i][j].setOuterRingMatrix("   ");
+                    }
+
+                    // Attempt to attack enemy diagonally-LEFT and kill them.
+                    if (chessBoards[i-2][j-1].getPosition() == movePosition &&
+                            chessBoards[i-2][j-1].getName() == moveName) {
+
+                        // Moving player brick, and killing enemy Pawn
+                        chessBoards[i-2][j-1].setChessPiece(chessBoards[i][j].getChessPiece());
+                        chessBoards[i][j].setOuterRingMatrix("   ");
+                    }
+                    break;
                 }
-            }
-        }
-    }
+            }   // Row loop end
+        }   // Col loop end
+    }   // Method end
 
     public void KnightMove() {
 

@@ -1,7 +1,4 @@
 // The board class is creating each chess field, holding a chess piece which is owned by a player by color ( W / B )
-
-import java.util.Iterator;
-
 public class Board {
 
     public Player[] whiteBricks = new Player[6];
@@ -10,6 +7,14 @@ public class Board {
     public static ChessFields[][] chessBoards = new ChessFields[18][10];
 
 
+
+
+    // Getter --------------------------------------
+
+
+    public static ChessFields[][] getChessBoards() {
+        return chessBoards;
+    }
 
     // Creating all chess pieces for both black and white player.
     public void makeWhiteChessPlayer() {
@@ -104,7 +109,6 @@ public class Board {
                 // Creates empty spaces for print layout between black and white pieces at start -----
                 if (i == 6 || i == 8 || i == 10 || i == 12) {
                     if (j > 0 && j < 9) {
-                        chessBoards[i][j] = new ChessFields();
                         chessBoards[i][j].setOuterRingMatrix("   ");
                     }
                 }
