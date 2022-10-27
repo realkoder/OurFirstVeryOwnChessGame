@@ -9,15 +9,16 @@ public class GameLogic extends Board {
     // Behaviors (Methods) ------------------------------------
     protected void pawnMove(int row, int col) {
         System.out.println("Where to?");
-        int rowMove = getRowPos();
-        int colMove = getColumnPos();
+        int rowMove = getRowPos();          // Scanning intended moving position based on row position
+        int colMove = getColumnPos();       // Scanning intended moving position based on col position
 
         // Vertical Movements -----------------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
-                Math.abs(colMove - col) < 4 &&
-                Math.abs(colMove - col) >= 2 &&
-                row == rowMove &&
+
+                Math.abs(colMove - col) == 2 &&     // When PAWN move it should always minimum move 1 colum position
+                row == rowMove &&                   // Only moving should change row position
+
                 chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
             PawnNoReverseMove(row, col, rowMove, colMove);
@@ -26,7 +27,14 @@ public class GameLogic extends Board {
         //Vertical move to positions if PAWN is at start place --------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
-                col == 14 || col == 4 &&
+
+                // Verifying the difference between intended pos and original position equals starting value
+                Math.abs(colMove - col) == 14 ||
+                Math.abs(colMove - col) == 4 &&
+
+                col == 14 ||        // Verifying BLACK piece is placed at starting position
+                col == 4 &&         // Verifying WHITE piece is placed at starting position
+
                 chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
             PawnNoReverseMove(row, col, rowMove, colMove);
@@ -36,9 +44,9 @@ public class GameLogic extends Board {
         // Diagonally Attacks ----------------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
-                Math.abs(colMove - col) < 4 &&
-                Math.abs(colMove - col) >= 2 &&
-                Math.abs(rowMove - row) == 1) {
+                Math.abs(colMove - col) < 4 &&  // Making sure move is valid
+                Math.abs(colMove - col) >= 2 && // Move should always be minimum a position
+                Math.abs(rowMove - row) == 1) { // When attack row position always differs from 1
 
             PawnNoReverseMove(row, col, rowMove, colMove);
 
