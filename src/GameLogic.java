@@ -6,8 +6,6 @@ public class GameLogic extends Board {
     Scanner in = new Scanner(System.in);
 
 
-
-
     // Behaviors (Methods) ------------------------------------
     protected void pawnMove(int row, int col) {
         System.out.println("Where to?");
@@ -15,27 +13,23 @@ public class GameLogic extends Board {
         int colMove = getColumnPos();
 
         // Vertical Movements -----------------------
-        if (!Objects.equals(chessBoards[colMove][row].getChessPiece().getColor(),
+        if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
-                    Math.abs(colMove - col) < 4 &&
-                    chessBoards[colMove][row].getOuterRingMatrix() != null ) {
+                Math.abs(colMove - col) < 4 &&
+                Math.abs(colMove - col) >= 2 &&
+                row == rowMove &&
+                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
-                    chessBoards[colMove][row].setOuterRingMatrix(null);
-                    chessBoards[colMove][row].setChessPiece(chessBoards[col][row].getChessPiece());
-                    chessBoards[col][row].setOuterRingMatrix("   ");
+            PawnNoReverseMove(row, col, rowMove, colMove);
         }
 
         //Vertical move to positions if PAWN is at start place --------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
-                    (chessBoards[col][row].getPosition() == 7 ||
-                    chessBoards[col][row].getPosition() == 2) &&
-                    Math.abs(colMove - col) == 4 &&
-                    chessBoards[colMove][row].getOuterRingMatrix() != null) {
+                col == 14 || col == 4 &&
+                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
-                    chessBoards[colMove][row].setOuterRingMatrix(null);
-                    chessBoards[colMove][row].setChessPiece(chessBoards[col][row].getChessPiece());
-                    chessBoards[col][row].setOuterRingMatrix("   ");
+            PawnNoReverseMove(row, col, rowMove, colMove);
 
         }
 
@@ -80,7 +74,7 @@ public class GameLogic extends Board {
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
                 Math.abs(colMove - col) < 5 &&
-                Math.abs(rowMove-row) < 3 &&
+                Math.abs(rowMove - row) < 3 &&
                 !(Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 1) &&
                 !(Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) &&
                 !(Math.abs(colMove - col) > 4 && Math.abs(rowMove - row) > 2)) {
@@ -95,7 +89,6 @@ public class GameLogic extends Board {
             System.out.println("You can't make that move!");
         }
     }
-
 
 
     public void bishopMove() {
@@ -113,7 +106,6 @@ public class GameLogic extends Board {
     public void kingMove() {
 
     }
-
 
 
     // Get ROWS AND COLUMNS! --------------------------------
@@ -147,7 +139,6 @@ public class GameLogic extends Board {
         in.nextLine();
         return column * 2;
     }
-
 
 
 }
