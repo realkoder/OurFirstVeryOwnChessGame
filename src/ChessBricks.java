@@ -17,4 +17,5 @@ public enum ChessBricks {
         this.name = name;
 
     }
+
 }

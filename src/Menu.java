@@ -1,41 +1,58 @@
 public class Menu extends GameLogic {
     //printer text for user and reads choice
-    protected final String[] menuOptions = {"1: Move PAWN", "2:", "3: Fjern Ordre",
-            "4: Afslut Ordre", "5: Se næste ordre", "6: Se alle aktive ordre", "7: Se alle afsluttede ordre",
-            "8: Tæl kassen op", "9: Afslut program"};
 
 
     public void getBrickToMove() {
-        int rows = getRowPos();
-        int columns = getColumnPos();
+        boolean keepRunning = true;
+        do {
+            print();
+            System.out.println("Please make your move! ");
+            int rows = getRowPos();
+            int columns = getColumnPos();
 
-        switch (chessBoards[rows][columns].getChessPiece().getChessBricks()) {
-            case PAWN:
-                pawnMove(rows, columns);
-                break;
+            if (chessBoards[columns][rows].getChessPiece().getChessBricks() != null) {
 
-            case ROOK:
+                switch (chessBoards[columns][rows].getChessPiece().getChessBricks().getName()) {
+                    case "PA":
+                        pawnMove(rows, columns);
+                        System.out.println("Player " + chessBoards[columns][rows].getChessPiece().getColor() +
+                                " moved a - PAWN");
+                        break;
 
-                break;
+                    case "RO":
 
-            case KNIGHT:
-                knightMove(rows, columns);
-                break;
+                        break;
 
-            case BISHOP:
+                    case "KN":
+                        knightMove(rows, columns);
+                        System.out.println("Player " + chessBoards[columns][rows].getChessPiece().getColor() +
+                                " moved a - KNIGHT");
+                        break;
 
-                break;
+                    case "BI":
 
-            case KING:
+                        break;
 
-                break;
+                    case "KI":
 
-            case QUEEN:
+                        break;
 
-                break;
+                    case "QU":
 
-            default:
-                System.out.println("Wrong inputs");
-        }
+                        break;
+
+                    default:
+                        System.out.println("Wrong inputs");
+                }
+
+            }
+
+            else {
+
+                System.out.println("No brick available!");
+            }
+
+        } while (keepRunning);
     }
+
 }
