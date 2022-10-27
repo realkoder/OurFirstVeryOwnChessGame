@@ -1,6 +1,6 @@
 public class ChessGameDriver {
     public void run(){
-        GameLogic game = new GameLogic();
+        Menu game = new Menu();
 
         game.print();
         game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());

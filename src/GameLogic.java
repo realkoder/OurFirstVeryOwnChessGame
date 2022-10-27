@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class GameLogic extends Board {
     Scanner in = new Scanner(System.in);
 
-    public int getRowPos() {
+    protected int getRowPos() {
         System.out.println("Type letter");
         return in.next().toUpperCase().charAt(0) - 64;
     }
 
-    public int getColumnPos() {
+    protected int getColumnPos() {
         boolean keeprunning = true;
         int column = 0;
         System.out.println("Type position");
@@ -31,21 +31,29 @@ public class GameLogic extends Board {
         return column * 2;
     }
 
-    public void pawnBlackMove2(int j, int i) {
+    protected void pawnBlackMove2(int j, int i) {
         System.out.println("Where to?");
         int nextLetterPos = getRowPos();
         int nextPos = getColumnPos();
 
-        if (chessBoards[i][j].getChessPiece().getChessBricks() == ChessBricks.PAWN) {
 
-            chessBoards[nextPos][j].setOuterRingMatrix(null);
-            chessBoards[nextPos][j].setChessPiece(chessBoards[i][j].getChessPiece());
-            chessBoards[i][j].setOuterRingMatrix("   ");
-        }
+            if (Math.abs(nextPos - i) == 2) {
+                chessBoards[nextPos][j].setOuterRingMatrix(null);
+                chessBoards[nextPos][j].setChessPiece(chessBoards[i][j].getChessPiece());
+                chessBoards[i][j].setOuterRingMatrix("   ");
+            }
+
+            if (Math.abs(nextPos - i) == 4 && chessBoards[nextPos][i].getPosition() == 7 || chessBoards[nextPos][j].getPosition() == 2) {
+                chessBoards[nextPos][j].setOuterRingMatrix(null);
+                chessBoards[nextPos][j].setChessPiece(chessBoards[i][j].getChessPiece());
+                chessBoards[i][j].setOuterRingMatrix("   ");
+            }
+
+
     }
 
 
-    public void pawnBlackMove() {
+    protected void pawnBlackMove() {
         System.out.print("Please enter number position: ");
         int position = in.nextInt();
         in.nextLine();                  // Scanner Bug
@@ -107,7 +115,7 @@ public class GameLogic extends Board {
     }   // Method end
 
 
-    public void knightBlackMove() {
+    protected void knightBlackMove() {
 
         System.out.print("Please enter number position: ");
         int position = in.nextInt();
