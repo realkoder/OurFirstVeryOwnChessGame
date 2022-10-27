@@ -41,7 +41,8 @@ public class GameLogic extends Board {
 
                     // Attempt to attack enemy diagonally-RIGHT and kill them.
                     if (chessBoards[i-2][j+1].getPosition() == movePosition &&
-                            chessBoards[i-2][j+1].getName() == moveName) {
+                            chessBoards[i-2][j+1].getName() == moveName &&
+                            chessBoards[i-2][j+1].getOuterRingMatrix() == null) {
 
                         // Moving player brick, and killing enemy Pawn
                         chessBoards[i-2][j+1].setChessPiece(chessBoards[i][j].getChessPiece());
@@ -50,7 +51,8 @@ public class GameLogic extends Board {
 
                     // Attempt to attack enemy diagonally-LEFT and kill them.
                     if (chessBoards[i-2][j-1].getPosition() == movePosition &&
-                            chessBoards[i-2][j-1].getName() == moveName) {
+                            chessBoards[i-2][j-1].getName() == moveName &&
+                            chessBoards[i-2][j-1].getOuterRingMatrix() == null) {
 
                         // Moving player brick, and killing enemy Pawn
                         chessBoards[i-2][j-1].setChessPiece(chessBoards[i][j].getChessPiece());
