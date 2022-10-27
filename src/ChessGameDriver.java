@@ -3,14 +3,16 @@ public class ChessGameDriver {
         GameLogic game = new GameLogic();
 
         game.print();
-        game.knightBlackMove();
+        game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());
         game.print();
-        game.pawnBlackMove();
+        game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());
         game.print();
-        game.pawnBlackMove();
-        game.pawnBlackMove();
+        game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());
         game.print();
-        game.pawnBlackMove();
+        game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());
+        game.print();
+        game.pawnBlackMove2(game.getRowPos(), game.getColumnPos());
+        game.print();
     }
     public static void main(String[]  args){
         new ChessGameDriver().run();

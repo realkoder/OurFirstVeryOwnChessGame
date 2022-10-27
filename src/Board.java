@@ -165,7 +165,7 @@ public class Board {
                 if (chessBoards[i][j].getOuterRingMatrix() == null) {
                     System.out.print(chessBoards[i][j].getChessPiece().getColor() +
                             chessBoards[i][j].getChessPiece().getChessBricks().getName());
-                } else {
+               } else {
                 System.out.print(chessBoards[i][j].getOuterRingMatrix());
                 }
 
