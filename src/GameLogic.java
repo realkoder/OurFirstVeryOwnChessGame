@@ -16,7 +16,8 @@ public class GameLogic extends Board {
 
         // Vertical Movements -----------------------
         if (!Objects.equals(chessBoards[colMove][row].getChessPiece().getColor(),
-                chessBoards[col][row].getChessPiece().getColor()) && Math.abs(colMove - col) < 4 &&
+                chessBoards[col][row].getChessPiece().getColor()) &&
+                    Math.abs(colMove - col) < 4 &&
                     chessBoards[colMove][row].getOuterRingMatrix() != null ) {
 
                     chessBoards[colMove][row].setOuterRingMatrix(null);
@@ -25,8 +26,10 @@ public class GameLogic extends Board {
         }
 
         if (!Objects.equals(chessBoards[colMove][row].getChessPiece().getColor(),
-                chessBoards[col][row].getChessPiece().getColor()) && (chessBoards[col][row].getPosition() == 7 ||
-                    chessBoards[col][row].getPosition() == 2) && Math.abs(colMove - col) == 4 &&
+                chessBoards[col][row].getChessPiece().getColor()) &&
+                    (chessBoards[col][row].getPosition() == 7 ||
+                    chessBoards[col][row].getPosition() == 2) &&
+                    Math.abs(colMove - col) == 4 &&
                     chessBoards[colMove][row].getOuterRingMatrix() != null) {
 
                     chessBoards[colMove][row].setOuterRingMatrix(null);
@@ -37,8 +40,10 @@ public class GameLogic extends Board {
 
         // Diagonally Attacks ----------------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
-                chessBoards[col][row].getChessPiece().getColor()) && Math.abs(colMove - col) < 4 &&
-                (Math.abs(rowMove - row) == 1 && chessBoards[colMove][rowMove].getOuterRingMatrix() == null)) {
+                chessBoards[col][row].getChessPiece().getColor()) &&
+                    Math.abs(colMove - col) < 4 &&
+                    (Math.abs(rowMove - row) == 1 &&
+                    chessBoards[colMove][rowMove].getOuterRingMatrix() == null)) {
 
             chessBoards[colMove][rowMove].setOuterRingMatrix(null);
             chessBoards[colMove][rowMove].setChessPiece(chessBoards[col][row].getChessPiece());
@@ -59,10 +64,13 @@ public class GameLogic extends Board {
         int colMove = getColumnPos();
 
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
-                chessBoards[col][row].getChessPiece().getColor()) && Math.abs(colMove - col) < 5 &&
-                Math.abs(rowMove-row) < 3 && !(Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 1) &&
-                !(Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) && !(Math.abs(colMove - col) > 4 &&
-                Math.abs(rowMove - row) > 2) && chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
+                chessBoards[col][row].getChessPiece().getColor()) &&
+                Math.abs(colMove - col) < 5 &&
+                Math.abs(rowMove-row) < 3 &&
+                !(Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 1) &&
+                !(Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) &&
+                !(Math.abs(colMove - col) > 4 && Math.abs(rowMove - row) > 2) &&
+                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
 
             chessBoards[colMove][rowMove].setOuterRingMatrix(null);
