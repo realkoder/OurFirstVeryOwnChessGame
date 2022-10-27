@@ -64,6 +64,7 @@ public class GameLogic extends Board {
                 !(Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) && !(Math.abs(colMove - col) > 4 &&
                 Math.abs(rowMove - row) > 2) && chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
+
             chessBoards[colMove][rowMove].setOuterRingMatrix(null);
             chessBoards[colMove][rowMove].setChessPiece(chessBoards[col][row].getChessPiece());
             chessBoards[col][row].setOuterRingMatrix("   ");
@@ -75,6 +76,8 @@ public class GameLogic extends Board {
             System.out.println("You can't make that move!");
         }
     }
+
+
 
     public void bishopMove() {
 
