@@ -6,12 +6,12 @@ public class Menu extends GameLogic {
 
 
     public void getBrickToMove() {
-        int i = getRowPos();
-        int j = getColumnPos();
+        int rows = getRowPos();
+        int columns = getColumnPos();
 
-        switch (chessBoards[i][j].getChessPiece().getChessBricks()) {
+        switch (chessBoards[rows][columns].getChessPiece().getChessBricks()) {
             case PAWN:
-                pawnBlackMove2(i, j);
+                pawnMove(rows, columns);
                 break;
 
             case ROOK:
@@ -19,7 +19,7 @@ public class Menu extends GameLogic {
                 break;
 
             case KNIGHT:
-
+                knightMove(rows, columns);
                 break;
 
             case BISHOP:
