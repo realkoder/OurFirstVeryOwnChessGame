@@ -3,18 +3,11 @@ public class ChessGameDriver {
         GameLogic game = new GameLogic();
 
         game.print();
-        game.pawnBlackMove();
+        game.knightBlackMove();
         game.print();
         game.pawnBlackMove();
         game.print();
         game.pawnBlackMove();
-        game.print();
-        game.pawnBlackMove();
-        game.print();
-        game.pawnBlackMove();
-        game.print();
-        game.pawnBlackMove();
-        game.print();
         game.pawnBlackMove();
         game.print();
         game.pawnBlackMove();
