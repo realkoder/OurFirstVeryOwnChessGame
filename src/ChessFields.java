@@ -3,7 +3,7 @@ public class ChessFields {
     private int position;
     private String outerRingMatrix;
 
-    private Player[] chessPiece = new Player[1];
+    private Player chessPiece = new Player("W");
 
 
 
@@ -25,6 +25,10 @@ public class ChessFields {
         this.outerRingMatrix = outerRingMatrix;
     }
 
+    public void setChessPiece(Player chessPiece) {
+        this.chessPiece = chessPiece;
+    }
+
     // Getter ----------------------------------
     public char getName() {
         return name;
@@ -38,7 +42,7 @@ public class ChessFields {
         return outerRingMatrix;
     }
 
-    public Player[] getChessPiece() {
+    public Player getChessPiece() {
         return chessPiece;
     }
 }

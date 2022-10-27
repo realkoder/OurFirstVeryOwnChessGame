@@ -6,7 +6,6 @@
     <node x="167.91666666666674" y="-138.0">ChessFields</node>
     <node x="168.41666666666674" y="588.5">ChessGameDriver</node>
     <node x="147.41666666666674" y="264.5">Board</node>
-    <node x="555.8809256055363" y="-105.5">ChessBricks</node>
     <node x="696.7061707035756" y="286.0">Player</node>
   </nodes>
   <notes />
@@ -28,10 +27,8 @@
       <point x="15.0" y="116.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="true" x="473.5" y="273.5" />
-  <SelectedNodes>
-    <node>ChessBricks</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="true" x="473.5" y="238.5" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>
