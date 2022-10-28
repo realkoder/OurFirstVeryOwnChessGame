@@ -30,7 +30,7 @@ public class Menu extends GameLogic {
                         break;
 
                     case "BI":
-
+                        bishopMove(rows, columns);
                         break;
 
                     case "KI":

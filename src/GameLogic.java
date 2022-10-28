@@ -32,10 +32,10 @@ public class GameLogic extends Board {
                 Math.abs(colMove - col) == 14 ||
                 Math.abs(colMove - col) == 4 &&
 
-                col == 14 ||        // Verifying BLACK piece is placed at starting position
+                        col == 14 ||        // Verifying BLACK piece is placed at starting position
                 col == 4 &&         // Verifying WHITE piece is placed at starting position
 
-                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
+                        chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
             PawnNoReverseMove(row, col, rowMove, colMove);
 
@@ -99,8 +99,77 @@ public class GameLogic extends Board {
     }
 
 
-    public void bishopMove() {
+    public void bishopMove(int row, int col) {
+        System.out.println("Where to?");
+        int rowMove = getRowPos();
+        int colMove = getColumnPos();
 
+        if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
+                chessBoards[col][row].getChessPiece().getColor()) &&
+                isBishopLaneEmpty(row, col, rowMove, colMove) &&
+        isBishopMoveValid(row, col, rowMove, colMove)) {
+
+            chessBoards[colMove][rowMove].setOuterRingMatrix(null);
+            chessBoards[colMove][rowMove] = chessBoards[col][row];
+            chessBoards[col][row] = new ChessFields();
+            chessBoards[col][row].setOuterRingMatrix("   ");
+
+        }
+    }
+
+    public boolean isBishopMoveValid(int row, int col, int rowMove, int colMove) {
+        boolean isValid = false;
+        int colLanes = Math.abs((colMove / 2) - (col / 2));
+        int rowLanes = Math.abs(rowMove - row);
+        if (col == 1){
+            colLanes = Math.abs(col - (colMove / 2));
+        }
+        if (Math.abs(colLanes / rowLanes) == 1){
+            return isValid = true;
+        }
+        return isValid;
+    }
+
+    public boolean isBishopLaneEmpty(int row, int col, int rowMove, int colMove) {
+        boolean validMove = true;
+        if (colMove > col) { // bishop moves from low col to higher col
+            if (rowMove > row) { // bishop moves from low row to higher row
+                for (int i = 2; i <= (colMove / 2) - (col / 2); i += 2) {
+                    if (chessBoards[col][row].getChessPiece().getColor() ==
+                            chessBoards[col + i][row + 1].getChessPiece().getColor()) {
+                        System.out.println("Nope not possible 1");
+                        return validMove = false;
+                    }
+                }
+            } else {// bishop moves from high row to lower row
+                for (int i = 2; i <= (colMove / 2) - (col / 2); i += 2) {
+                    if (chessBoards[col][row].getChessPiece().getColor() ==
+                            chessBoards[col + i][row - 1].getChessPiece().getColor()) {
+                        System.out.println("Nope not possible 2");
+                        return validMove = false;
+                    }
+                }
+            }
+        } else if (colMove < col) {// bishop moves from high col to lower col
+            if (rowMove > row) { // bishop moves from low row to higher row
+                for (int i = 2; i <= (col / 2) - (colMove / 2); i += 2) {
+                    if (chessBoards[col][row].getChessPiece().getColor() ==
+                            chessBoards[col - i][row + 1].getChessPiece().getColor()) {
+                        System.out.println("Nope not possible 3");
+                        return validMove = false;
+                    }
+                }
+            } else {// bishop moves from high row to lower row
+                for (int i = 2; i <= (col / 2) - (colMove / 2); i += 2) {
+                    if (chessBoards[col][row].getChessPiece().getColor() ==
+                            chessBoards[col - i][row - 1].getChessPiece().getColor()) {
+                        System.out.println("Nope not possible 4");
+                        return validMove = false;
+                    }
+                }
+            }
+        }
+        return validMove;
     }
 
     public void rookMove() {
