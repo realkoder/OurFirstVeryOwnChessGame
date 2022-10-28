@@ -183,32 +183,4 @@ public class Board {
         createOuterBoardRing();
         addChessPiecesToBoard();
     }
-
-    // Behavior (Methods) -------------------------------------
-    public boolean findFieldPosition(int position, char name) {
-
-        boolean fieldFound = false;
-        for (int i = 1; i < chessBoards.length - 1; i++) {
-            for (int j = 1; j < chessBoards[i].length - 1; j++) {
-                if (chessBoards[i][j].getPosition() == position && chessBoards[i][j].getName() == name) {
-                fieldFound = true;
-                break;
-                }
-            }
-        }
-        return fieldFound;
-    }
-
-    public ChessBricks checkChessBrick(int position, char name) {
-        ChessBricks chessBricks = null;
-        for (int i = 1; i < chessBoards.length - 1; i++) {
-            for (int j = 1; j < chessBoards[i].length - 1; j++) {
-                if (chessBoards[i][j].getPosition() == position && chessBoards[i][j].getName() == name) {
-                    chessBricks = chessBoards[i][j].getChessPiece().getChessBricks();
-                    break;
-                }
-            }
-        }
-        return chessBricks;
-    }
 }
