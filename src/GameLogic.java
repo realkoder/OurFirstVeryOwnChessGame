@@ -154,6 +154,8 @@ public class GameLogic extends Board {
             setBishop (row, col, rowMove, colMove);
         }
 
+
+
     }
 
     public boolean validBishopMoveScanner(int row, int col, int rowMove, int colMove) {
@@ -338,11 +340,135 @@ public class GameLogic extends Board {
         return validMove;
     }
 
-    public void rookMove() {
+    // ROOK MOVER ------------------------------
+
+    public void rookMove(int row, int col) {
+
+        System.out.println("Where to?");
+        int rowMove = getRowPos();
+        int colMove = getColumnPos();
+
+        if ((Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) ||
+            Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 0) {
+
+            // If the rook wish to move/attack one position horizontally or vertically
+            setBishop (row, col, rowMove, colMove);
+
+        }
+
+        // Moving from left to right
+        if (colMove == col && rowMove > row &&
+                validRookMoveScanner(row, col, rowMove, colMove)) {
+
+            setBishop (row, col, rowMove, colMove);
+
+        }
+
+        // Moving from right to left
+        if (colMove == col && rowMove < row &&
+                validRookMoveScanner(row, col, rowMove, colMove)) {
+
+            setBishop (row, col, rowMove, colMove);
+
+        }
+
+        // Moving from bottom to top
+        if (colMove < col && rowMove == row &&
+                validRookMoveScanner(row, col, rowMove, colMove)) {
+
+            setBishop (row, col, rowMove, colMove);
+
+        }
+
+        // Moving from top to bottom
+        if (colMove > col && rowMove == row &&
+                validRookMoveScanner(row, col, rowMove, colMove)) {
+
+            setBishop (row, col, rowMove, colMove);
+
+        }
 
     }
 
+    public boolean validRookMoveScanner(int row, int col, int rowMove, int colMove) {
+        boolean isValid = false;
+        int rowCounter = 1;
+        int columCounter = 2;
+
+        if (colMove == col && rowMove > row) {
+            // Checking chess fields from left to right
+
+            for (int i = row; i < rowMove - 1; i++) {
+
+                if (chessBoards[col][row + rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove == col && rowMove < row) {
+            // Checking chess fields from right to left
+
+            for (int i = row; i > rowMove + 1; i--) {
+
+                if (chessBoards[col][row - rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove > col && rowMove == row) {
+            // Checking chess fields from top to bottom
+
+            for (int i = col; i < colMove - 2; i += 2) {
+
+                if (chessBoards[col + columCounter][row].getOuterRingMatrix() != null) {
+                    columCounter += 2;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove < col && rowMove == row) {
+            // Checking chess fields from bottom to top
+
+            for (int i = col; i > colMove + 2; i -= 2) {
+
+                if (chessBoards[col - columCounter][row].getOuterRingMatrix() != null) {
+                    columCounter += 2;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        return isValid;
+    }
+
     public void queenMove() {
+
+
 
     }
 
@@ -351,7 +477,7 @@ public class GameLogic extends Board {
     }
 
 
-    // Get ROWS AND COLUMNS! --------------------------------
+    // Get ROWS AND COLUMNS + ANNOUNCE MOVE! --------------------------------
 
     // Rows ....... A -> H
     protected int getRowPos() {

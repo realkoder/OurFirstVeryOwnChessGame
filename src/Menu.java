@@ -18,7 +18,7 @@ public class Menu extends GameLogic {
                         break;
 
                     case "RO":
-
+                        rookMove(rows, columns);
                         break;
 
                     case "KN":
