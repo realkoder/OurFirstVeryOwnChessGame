@@ -32,10 +32,10 @@ public class GameLogic extends Board {
                 Math.abs(colMove - col) == 14 ||
                 Math.abs(colMove - col) == 4 &&
 
-                        col == 14 ||        // Verifying BLACK piece is placed at starting position
+                col == 14 ||        // Verifying BLACK piece is placed at starting position
                 col == 4 &&         // Verifying WHITE piece is placed at starting position
 
-                        chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
+                chessBoards[colMove][rowMove].getOuterRingMatrix() != null) {
 
             PawnNoReverseMove(row, col, rowMove, colMove);
 
@@ -50,9 +50,6 @@ public class GameLogic extends Board {
 
             PawnNoReverseMove(row, col, rowMove, colMove);
 
-        } else {
-
-            System.out.println("You can't make that move!");
         }
     }
 
@@ -63,6 +60,8 @@ public class GameLogic extends Board {
             chessBoards[colMove][rowMove] = chessBoards[col][row];
             chessBoards[col][row] = new ChessFields();
             chessBoards[col][row].setOuterRingMatrix("   ");
+
+            announceMove(colMove, rowMove);
         }
 
         if (chessBoards[col][row].getChessPiece().getColor().equals("B") && colMove - col < 0) {
@@ -70,6 +69,13 @@ public class GameLogic extends Board {
             chessBoards[colMove][rowMove] = chessBoards[col][row];
             chessBoards[col][row] = new ChessFields();
             chessBoards[col][row].setOuterRingMatrix("   ");
+
+            announceMove(colMove, rowMove);
+        }
+
+        else {
+
+            System.out.println("You can't make that move!");
         }
     }
 
@@ -92,11 +98,159 @@ public class GameLogic extends Board {
             chessBoards[col][row] = new ChessFields();
             chessBoards[col][row].setOuterRingMatrix("   ");
 
+            announceMove(colMove, rowMove);
+
         } else {
 
             System.out.println("You can't make that move!");
         }
     }
+
+
+
+
+    public void bishopMover(int row, int col) {
+
+        System.out.println("Where to?");
+        int rowMove = getRowPos();
+        int colMove = getColumnPos();
+
+        if (Math.abs(colMove - col) == 2 &&
+                isBishopMoveValid(row, col, rowMove, colMove)) {
+            // One position diagonally move or attack.
+            setBishop (row, col, rowMove, colMove);
+        }
+
+        if (colMove < col && rowMove > row &&
+                Math.abs(colMove - col) != 2 &&
+                isBishopMoveValid(row, col, rowMove, colMove) &&
+                validBishopMoveScanner(row, col, rowMove, colMove)) {
+
+            // Diagonally right top move
+            setBishop (row, col, rowMove, colMove);
+        }
+
+        if (colMove < col && rowMove < row &&
+                Math.abs(colMove - col) != 2 &&
+                isBishopMoveValid(row, col, rowMove, colMove) &&
+                validBishopMoveScanner(row, col, rowMove, colMove)) {
+            // Diagonally left top move
+            setBishop (row, col, rowMove, colMove);
+        }
+
+        if (colMove > col && rowMove > row &&
+                Math.abs(colMove - col) != 2 &&
+                isBishopMoveValid(row, col, rowMove, colMove) &&
+                validBishopMoveScanner(row, col, rowMove, colMove)) {
+            // Diagonally right bottom move
+            setBishop (row, col, rowMove, colMove);
+        }
+
+        if (colMove > col && rowMove < row &&
+                Math.abs(colMove - col) != 2 &&
+                isBishopMoveValid(row, col, rowMove, colMove) &&
+                validBishopMoveScanner(row, col, rowMove, colMove)) {
+            // Diagonally left bottom move
+            setBishop (row, col, rowMove, colMove);
+        }
+
+    }
+
+    public boolean validBishopMoveScanner(int row, int col, int rowMove, int colMove) {
+        boolean isValid = false;
+        int rowCounter = 1;
+
+        if (colMove < col && rowMove > row) {
+            // Diagonally right top move
+
+            for (int i = col; i > colMove + 2; i -= 2) {
+
+                 if (chessBoards[i-2][row + rowCounter].getOuterRingMatrix() != null) {
+                     rowCounter++;
+                     isValid = true;
+
+                 } else {
+                     isValid = false;
+                     System.out.println("You can't make that move!");
+                     break;
+                 }
+            }
+        }
+
+        if (colMove < col && rowMove < row) {
+            // Diagonally left top move
+
+            for (int i = col; i > colMove + 2; i -= 2) {
+
+                if (chessBoards[i-2][row - rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove > col && rowMove > row) {
+            // Diagonally right bottom move
+
+            for (int i = col; i < colMove - 2; i += 2) {
+
+                if (chessBoards[i+2][row + rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove > col && rowMove < row) {
+            // Diagonally left bottom move
+
+            for (int i = col; i < colMove - 2; i += 2) {
+
+                if (chessBoards[i+2][row - rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        return isValid;
+    }
+
+    public void setBishop (int row, int col, int rowMove, int colMove) {
+        if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
+                chessBoards[col][row].getChessPiece().getColor())) {
+
+            chessBoards[colMove][rowMove].setOuterRingMatrix(null);
+            chessBoards[colMove][rowMove] = chessBoards[col][row];
+            chessBoards[col][row] = new ChessFields();
+            chessBoards[col][row].setOuterRingMatrix("   ");
+
+            announceMove(colMove, rowMove);
+
+        } else {
+
+            System.out.println("You can't make that move!");
+        }
+    }
+
+
+
+
 
 
     public void bishopMove(int row, int col) {
@@ -107,13 +261,19 @@ public class GameLogic extends Board {
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
                 isBishopLaneEmpty(row, col, rowMove, colMove) &&
-        isBishopMoveValid(row, col, rowMove, colMove)) {
+                isBishopMoveValid(row, col, rowMove, colMove)) {
 
             chessBoards[colMove][rowMove].setOuterRingMatrix(null);
             chessBoards[colMove][rowMove] = chessBoards[col][row];
             chessBoards[col][row] = new ChessFields();
             chessBoards[col][row].setOuterRingMatrix("   ");
 
+            announceMove(colMove, rowMove);
+        }
+
+        else {
+
+            System.out.println("You can't make that move!");
         }
     }
 
@@ -125,47 +285,53 @@ public class GameLogic extends Board {
             colLanes = Math.abs(col - (colMove / 2));
         }
         if (Math.abs(colLanes / rowLanes) == 1){
-            return isValid = true;
+            isValid = true;
         }
         return isValid;
     }
 
     public boolean isBishopLaneEmpty(int row, int col, int rowMove, int colMove) {
         boolean validMove = true;
+        int rowCount = 1;
+
         if (colMove > col) { // bishop moves from low col to higher col
             if (rowMove > row) { // bishop moves from low row to higher row
                 for (int i = 2; i <= (colMove / 2) - (col / 2); i += 2) {
                     if (chessBoards[col][row].getChessPiece().getColor() ==
-                            chessBoards[col + i][row + 1].getChessPiece().getColor()) {
+                            chessBoards[col + i][row + rowCount].getChessPiece().getColor()) {
                         System.out.println("Nope not possible 1");
-                        return validMove = false;
+                        validMove = false;
                     }
+                    rowCount++;
                 }
             } else {// bishop moves from high row to lower row
                 for (int i = 2; i <= (colMove / 2) - (col / 2); i += 2) {
-                    if (chessBoards[col][row].getChessPiece().getColor() ==
-                            chessBoards[col + i][row - 1].getChessPiece().getColor()) {
+                    if (Objects.equals(chessBoards[col][row].getChessPiece().getColor(),
+                            chessBoards[col + i][row - rowCount].getChessPiece().getColor())) {
                         System.out.println("Nope not possible 2");
-                        return validMove = false;
+                        validMove = false;
                     }
+                    rowCount--;
                 }
             }
         } else if (colMove < col) {// bishop moves from high col to lower col
             if (rowMove > row) { // bishop moves from low row to higher row
-                for (int i = 2; i <= (col / 2) - (colMove / 2); i += 2) {
-                    if (chessBoards[col][row].getChessPiece().getColor() ==
-                            chessBoards[col - i][row + 1].getChessPiece().getColor()) {
+                for (int i = col; i >= colMove; i -= 2) {
+                    if (Objects.equals(chessBoards[col][row].getChessPiece().getColor(),
+                            chessBoards[i][row + rowCount].getChessPiece().getColor())) {
                         System.out.println("Nope not possible 3");
-                        return validMove = false;
+                        validMove = false;
                     }
+                    rowCount++;
                 }
             } else {// bishop moves from high row to lower row
-                for (int i = 2; i <= (col / 2) - (colMove / 2); i += 2) {
-                    if (chessBoards[col][row].getChessPiece().getColor() ==
-                            chessBoards[col - i][row - 1].getChessPiece().getColor()) {
+                for (int i = col; i >= colMove; i -= 2) {
+                    if (Objects.equals(chessBoards[col][row].getChessPiece().getColor(),
+                            chessBoards[i][row - rowCount].getChessPiece().getColor())) {
                         System.out.println("Nope not possible 4");
-                        return validMove = false;
+                        validMove = false;
                     }
+                    rowCount--;
                 }
             }
         }
@@ -215,6 +381,12 @@ public class GameLogic extends Board {
         } while (keeprunning);
         in.nextLine();
         return column * 2;
+    }
+
+
+    public void announceMove(int colMove, int rowMove) {
+        System.out.println("Player " + chessBoards[colMove][rowMove].getChessPiece().getColor() +
+                " moved " + chessBoards[colMove][rowMove].getChessPiece().getChessBricks());
     }
 
 

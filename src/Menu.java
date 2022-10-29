@@ -15,8 +15,6 @@ public class Menu extends GameLogic {
                 switch (chessBoards[columns][rows].getChessPiece().getChessBricks().getName()) {
                     case "PA":
                         pawnMove(rows, columns);
-                        System.out.println("Player " + chessBoards[columns][rows].getChessPiece().getColor() +
-                                " moved a - PAWN");
                         break;
 
                     case "RO":
@@ -25,12 +23,11 @@ public class Menu extends GameLogic {
 
                     case "KN":
                         knightMove(rows, columns);
-                        System.out.println("Player " + chessBoards[columns][rows].getChessPiece().getColor() +
-                                " moved a - KNIGHT");
                         break;
 
                     case "BI":
-                        bishopMove(rows, columns);
+                        bishopMover(rows, columns);
+
                         break;
 
                     case "KI":
