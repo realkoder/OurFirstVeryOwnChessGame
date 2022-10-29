@@ -27,15 +27,14 @@ public class Menu extends GameLogic {
 
                     case "BI":
                         bishopMover(rows, columns);
-
                         break;
 
                     case "KI":
-
+                        kingMove(rows, columns);
                         break;
 
                     case "QU":
-
+                        queenMove(rows, columns);
                         break;
 
                     default:

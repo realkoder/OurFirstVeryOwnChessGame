@@ -1,18 +1,18 @@
 import java.util.Objects;
 import java.util.Scanner;
 
-// Methods for all bricks to move, conditions for when taken and not able to take
+// Methods for all bricks to move and conditions -----------------
 public class GameLogic extends Board {
     Scanner in = new Scanner(System.in);
 
 
-    // Behaviors (Methods) ------------------------------------
+    // PAWN BEHAVIOR  ------------------------------------
     protected void pawnMove(int row, int col) {
         System.out.println("Where to?");
         int rowMove = getRowPos();          // Scanning intended moving position based on row position
         int colMove = getColumnPos();       // Scanning intended moving position based on col position
 
-        // Vertical Movements -----------------------
+        // PAWN vertical Movements -----------------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
 
@@ -41,7 +41,7 @@ public class GameLogic extends Board {
 
         }
 
-        // Diagonally Attacks ----------------------
+        // PAWN diagonally Attacks ----------------------
         if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
                 chessBoards[col][row].getChessPiece().getColor()) &&
                 Math.abs(colMove - col) < 4 &&  // Making sure move is valid
@@ -79,6 +79,7 @@ public class GameLogic extends Board {
         }
     }
 
+    // KNIGHT BEHAVIOR ----------------------------------------------
     protected void knightMove(int row, int col) {
         System.out.println("Where to?");
         int rowMove = getRowPos();
@@ -106,9 +107,7 @@ public class GameLogic extends Board {
         }
     }
 
-
-
-
+/*
     public void bishopMover(int row, int col) {
 
         System.out.println("Where to?");
@@ -118,141 +117,43 @@ public class GameLogic extends Board {
         if (Math.abs(colMove - col) == 2 &&
                 isBishopMoveValid(row, col, rowMove, colMove)) {
             // One position diagonally move or attack.
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
         }
 
         if (colMove < col && rowMove > row &&
                 Math.abs(colMove - col) != 2 &&
                 isBishopMoveValid(row, col, rowMove, colMove) &&
-                validBishopMoveScanner(row, col, rowMove, colMove)) {
+                diagonallyLaneChecker(row, col, rowMove, colMove)) {
 
             // Diagonally right top move
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
         }
 
         if (colMove < col && rowMove < row &&
                 Math.abs(colMove - col) != 2 &&
                 isBishopMoveValid(row, col, rowMove, colMove) &&
-                validBishopMoveScanner(row, col, rowMove, colMove)) {
+                diagonallyLaneChecker(row, col, rowMove, colMove)) {
             // Diagonally left top move
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
         }
 
         if (colMove > col && rowMove > row &&
                 Math.abs(colMove - col) != 2 &&
                 isBishopMoveValid(row, col, rowMove, colMove) &&
-                validBishopMoveScanner(row, col, rowMove, colMove)) {
+                diagonallyLaneChecker(row, col, rowMove, colMove)) {
             // Diagonally right bottom move
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
         }
 
         if (colMove > col && rowMove < row &&
                 Math.abs(colMove - col) != 2 &&
                 isBishopMoveValid(row, col, rowMove, colMove) &&
-                validBishopMoveScanner(row, col, rowMove, colMove)) {
+                diagonallyLaneChecker(row, col, rowMove, colMove)) {
             // Diagonally left bottom move
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
         }
-
-
 
     }
-
-    public boolean validBishopMoveScanner(int row, int col, int rowMove, int colMove) {
-        boolean isValid = false;
-        int rowCounter = 1;
-
-        if (colMove < col && rowMove > row) {
-            // Diagonally right top move
-
-            for (int i = col; i > colMove + 2; i -= 2) {
-
-                 if (chessBoards[i-2][row + rowCounter].getOuterRingMatrix() != null) {
-                     rowCounter++;
-                     isValid = true;
-
-                 } else {
-                     isValid = false;
-                     System.out.println("You can't make that move!");
-                     break;
-                 }
-            }
-        }
-
-        if (colMove < col && rowMove < row) {
-            // Diagonally left top move
-
-            for (int i = col; i > colMove + 2; i -= 2) {
-
-                if (chessBoards[i-2][row - rowCounter].getOuterRingMatrix() != null) {
-                    rowCounter++;
-                    isValid = true;
-
-                } else {
-                    isValid = false;
-                    System.out.println("You can't make that move!");
-                    break;
-                }
-            }
-        }
-
-        if (colMove > col && rowMove > row) {
-            // Diagonally right bottom move
-
-            for (int i = col; i < colMove - 2; i += 2) {
-
-                if (chessBoards[i+2][row + rowCounter].getOuterRingMatrix() != null) {
-                    rowCounter++;
-                    isValid = true;
-
-                } else {
-                    isValid = false;
-                    System.out.println("You can't make that move!");
-                    break;
-                }
-            }
-        }
-
-        if (colMove > col && rowMove < row) {
-            // Diagonally left bottom move
-
-            for (int i = col; i < colMove - 2; i += 2) {
-
-                if (chessBoards[i+2][row - rowCounter].getOuterRingMatrix() != null) {
-                    rowCounter++;
-                    isValid = true;
-
-                } else {
-                    isValid = false;
-                    System.out.println("You can't make that move!");
-                    break;
-                }
-            }
-        }
-
-        return isValid;
-    }
-
-    public void setBishop (int row, int col, int rowMove, int colMove) {
-        if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
-                chessBoards[col][row].getChessPiece().getColor())) {
-
-            chessBoards[colMove][rowMove].setOuterRingMatrix(null);
-            chessBoards[colMove][rowMove] = chessBoards[col][row];
-            chessBoards[col][row] = new ChessFields();
-            chessBoards[col][row].setOuterRingMatrix("   ");
-
-            announceMove(colMove, rowMove);
-
-        } else {
-
-            System.out.println("You can't make that move!");
-        }
-    }
-
-
-
-
 
 
     public void bishopMove(int row, int col) {
@@ -326,7 +227,8 @@ public class GameLogic extends Board {
                     }
                     rowCount++;
                 }
-            } else {// bishop moves from high row to lower row
+            } else {
+                // bishop moves from high row to lower row
                 for (int i = col; i >= colMove; i -= 2) {
                     if (Objects.equals(chessBoards[col][row].getChessPiece().getColor(),
                             chessBoards[i][row - rowCount].getChessPiece().getColor())) {
@@ -340,63 +242,112 @@ public class GameLogic extends Board {
         return validMove;
     }
 
-    // ROOK MOVER ------------------------------
+ */
 
+    // ROOK BEHAVIOR ----------------------------------------
     public void rookMove(int row, int col) {
 
         System.out.println("Where to?");
         int rowMove = getRowPos();
         int colMove = getColumnPos();
 
+        // If the rook wish to move/attack one position horizontally or vertically
         if ((Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) ||
             Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 0) {
 
-            // If the rook wish to move/attack one position horizontally or vertically
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
 
         }
 
         // Moving from left to right
         if (colMove == col && rowMove > row &&
-                validRookMoveScanner(row, col, rowMove, colMove)) {
+                verticalAndHorisontalLaneChecker(row, col, rowMove, colMove)) {
 
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
 
         }
 
         // Moving from right to left
         if (colMove == col && rowMove < row &&
-                validRookMoveScanner(row, col, rowMove, colMove)) {
+                verticalAndHorisontalLaneChecker(row, col, rowMove, colMove)) {
 
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
 
         }
 
         // Moving from bottom to top
         if (colMove < col && rowMove == row &&
-                validRookMoveScanner(row, col, rowMove, colMove)) {
+                verticalAndHorisontalLaneChecker(row, col, rowMove, colMove)) {
 
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
 
         }
 
         // Moving from top to bottom
         if (colMove > col && rowMove == row &&
-                validRookMoveScanner(row, col, rowMove, colMove)) {
+                verticalAndHorisontalLaneChecker(row, col, rowMove, colMove)) {
 
-            setBishop (row, col, rowMove, colMove);
+            setChessBrick(row, col, rowMove, colMove);
 
         }
 
     }
 
-    public boolean validRookMoveScanner(int row, int col, int rowMove, int colMove) {
+
+    // QUEEN BEHAVIOR -----------------------------------------
+    public void queenMove(int row, int col) {
+
+        System.out.println("Where to?");
+        int rowMove = getRowPos();
+        int colMove = getColumnPos();
+
+        if ((Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) ||
+                (Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 0) ||
+                (Math.abs(colMove - col) == 2)) {
+
+            setChessBrick(row, col, rowMove, colMove);
+
+        }
+
+        if (verticalAndHorisontalLaneChecker(row, col, rowMove, colMove)) {
+
+            setChessBrick(row, col, rowMove, colMove);
+
+        }
+
+        if (diagonallyLaneChecker(row, col, rowMove, colMove)) {
+
+            setChessBrick(row, col, rowMove, colMove);
+        }
+    }
+
+    // KING BEHAVIOR --------------------------------------------
+    public void kingMove(int row, int col) {
+
+        System.out.println("Where to?");
+        int rowMove = getRowPos();
+        int colMove = getColumnPos();
+
+        if ((Math.abs(colMove - col) == 0 && Math.abs(rowMove - row) == 1) ||
+                (Math.abs(colMove - col) == 2 && Math.abs(rowMove - row) == 0) ||
+                (Math.abs(colMove - col) == 2)) {
+
+            setChessBrick(row, col, rowMove, colMove);
+
+        }
+
+
+    }
+
+    // VERTICAL / HORIZONTAL AND DIAGONALLY MOVE CHECKER METHODS ----------------
+
+    public boolean verticalAndHorisontalLaneChecker(int row, int col, int rowMove, int colMove) {
         boolean isValid = false;
         int rowCounter = 1;
         int columCounter = 2;
 
+        // Checking chess fields from left to right
         if (colMove == col && rowMove > row) {
-            // Checking chess fields from left to right
 
             for (int i = row; i < rowMove - 1; i++) {
 
@@ -412,8 +363,8 @@ public class GameLogic extends Board {
             }
         }
 
+        // Checking chess fields from right to left
         if (colMove == col && rowMove < row) {
-            // Checking chess fields from right to left
 
             for (int i = row; i > rowMove + 1; i--) {
 
@@ -429,8 +380,8 @@ public class GameLogic extends Board {
             }
         }
 
+        // Checking chess fields from top to bottom
         if (colMove > col && rowMove == row) {
-            // Checking chess fields from top to bottom
 
             for (int i = col; i < colMove - 2; i += 2) {
 
@@ -446,8 +397,8 @@ public class GameLogic extends Board {
             }
         }
 
+        // Checking chess fields from bottom to top
         if (colMove < col && rowMove == row) {
-            // Checking chess fields from bottom to top
 
             for (int i = col; i > colMove + 2; i -= 2) {
 
@@ -466,14 +417,98 @@ public class GameLogic extends Board {
         return isValid;
     }
 
-    public void queenMove() {
+    public boolean diagonallyLaneChecker(int row, int col, int rowMove, int colMove) {
+        boolean isValid = false;
+        int rowCounter = 1;
 
+        if (colMove < col && rowMove > row) {
+            // Diagonally right top move
 
+            for (int i = col; i > colMove + 2; i -= 2) {
 
+                if (chessBoards[i-2][row + rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove < col && rowMove < row) {
+            // Diagonally left top move
+
+            for (int i = col; i > colMove + 2; i -= 2) {
+
+                if (chessBoards[i-2][row - rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove > col && rowMove > row) {
+            // Diagonally right bottom move
+
+            for (int i = col; i < colMove - 2; i += 2) {
+
+                if (chessBoards[i+2][row + rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        if (colMove > col && rowMove < row) {
+            // Diagonally left bottom move
+
+            for (int i = col; i < colMove - 2; i += 2) {
+
+                if (chessBoards[i+2][row - rowCounter].getOuterRingMatrix() != null) {
+                    rowCounter++;
+                    isValid = true;
+
+                } else {
+                    isValid = false;
+                    System.out.println("You can't make that move!");
+                    break;
+                }
+            }
+        }
+
+        return isValid;
     }
 
-    public void kingMove() {
 
+    // Set chessBrick within ROOK, QUEEN, KING and BISHOP METHOD
+    public void setChessBrick(int row, int col, int rowMove, int colMove) {
+        if (!Objects.equals(chessBoards[colMove][rowMove].getChessPiece().getColor(),
+                chessBoards[col][row].getChessPiece().getColor())) {
+
+            chessBoards[colMove][rowMove].setOuterRingMatrix(null);
+            chessBoards[colMove][rowMove] = chessBoards[col][row];
+            chessBoards[col][row] = new ChessFields();
+            chessBoards[col][row].setOuterRingMatrix("   ");
+
+            announceMove(colMove, rowMove);
+
+        } else {
+
+            System.out.println("You can't make that move!");
+        }
     }
 
 
