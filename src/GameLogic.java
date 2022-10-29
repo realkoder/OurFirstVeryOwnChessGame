@@ -107,7 +107,7 @@ public class GameLogic extends Board {
         }
     }
 
-/*
+
     public void bishopMover(int row, int col) {
 
         System.out.println("Where to?");
@@ -155,7 +155,20 @@ public class GameLogic extends Board {
 
     }
 
+    public boolean isBishopMoveValid(int row, int col, int rowMove, int colMove) {
+        boolean isValid = false;
+        int colLanes = Math.abs((colMove / 2) - (col / 2));
+        int rowLanes = Math.abs(rowMove - row);
+        if (col == 1){
+            colLanes = Math.abs(col - (colMove / 2));
+        }
+        if (Math.abs(colLanes / rowLanes) == 1){
+            isValid = true;
+        }
+        return isValid;
+    }
 
+/*
     public void bishopMove(int row, int col) {
         System.out.println("Where to?");
         int rowMove = getRowPos();
@@ -178,19 +191,6 @@ public class GameLogic extends Board {
 
             System.out.println("You can't make that move!");
         }
-    }
-
-    public boolean isBishopMoveValid(int row, int col, int rowMove, int colMove) {
-        boolean isValid = false;
-        int colLanes = Math.abs((colMove / 2) - (col / 2));
-        int rowLanes = Math.abs(rowMove - row);
-        if (col == 1){
-            colLanes = Math.abs(col - (colMove / 2));
-        }
-        if (Math.abs(colLanes / rowLanes) == 1){
-            isValid = true;
-        }
-        return isValid;
     }
 
     public boolean isBishopLaneEmpty(int row, int col, int rowMove, int colMove) {
